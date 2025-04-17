@@ -24,7 +24,7 @@ def main():
         with col3:
             company_location = st.text_input("Company location:",key = "company_location_tab1")
             company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"],key = "company_size_tab1")
-            remote_ratio = st.slider("Remote ratio in %:", 0, 100, step=5,key = "remote_ratio_tab1")
+            remote_ratio = st.slider("Remote ratio in %:", 5, 100, step=5,key = "remote_ratio_tab1")
 
         if st.button("Predict Salary"):
             prediction_data = {
@@ -54,17 +54,17 @@ def main():
             work_year = st.number_input("Work year:", min_value=0, step=1)
             employment_type = st.selectbox("Employment type:", ["Full-time", "Part-time", "Contract", "Freelance"])
             salary_currency = st.text_input("Salary currency (e.g., USD, EUR):")
-            salary = st.number_input("Salary:", min_value=0.0, step=1000.0, key="salary_tab2")
+            salary = st.number_input("Salary:", min_value=0.0, step=500.0, key="salary_tab2")
             
         with col2:
             experience_level = st.selectbox("Experience level:", ["Junior", "Mid-level", "Senior", "Executive"])
             job_title = st.text_input("Job title:")
             employee_residence = st.text_input("Employee residence:")
-            salary_in_usd = st.number_input("Salary in USD:", min_value=0.0, step=1000.0, key="salary_in_usd_tab2")
+            salary_in_usd = st.number_input("Salary in USD:", min_value=0.0, step=500.0, key="salary_in_usd_tab2")
         with col3:
             company_location = st.text_input("Company location:")
             company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"])
-            remote_ratio = st.slider("Remote ratio (0 for on-site, 100 for fully remote):", 0, 100, step=10)
+            remote_ratio = st.slider("Remote ratio (0 for on-site, 100 for fully remote):", 5, 100, step=10)
             
             
 
