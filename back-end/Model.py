@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, Float, Date,DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
 
-Base = declarative_base()
+db = SQLAlchemy()
 
-class Salaries(Base):
+class Salaries(db.Model):
     __tablename__ = 'salaries'
     id = Column(Integer, primary_key=True, autoincrement=True)
     work_year = Column(Integer, nullable=False)
