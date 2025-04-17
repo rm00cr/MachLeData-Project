@@ -1,4 +1,18 @@
 services:
+  api:
+    restart: always
+    image: romo1o/back-end-mse:latest
+    container_name: api
+    ports:
+      - 5000:5000
+
+  ui:
+    restart: always
+    image: romo1o/front-end-mse:latest
+    container_name: ui
+    ports:
+      - 444:8501
+
   postgres:
     image: postgres:16
     container_name: postgres_db

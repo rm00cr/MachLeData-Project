@@ -1,9 +1,11 @@
 import streamlit as st
 import requests
+import public_ip as ipf
 
 def main():
     if "ip" not in st.session_state:
-        st.session_state.ip = "localhost:5000"  # localhost:5000 for local use
+        con = ':443/back-end'
+        st.session_state.ip = "localhost" + con #ipf.get()+':443/back-end' # add if pushing to server
     st.title("Data jobs salary predictor")
 
     tab1, tab2 = st.tabs(["Predict Salary", "Enter New Data Point"])
