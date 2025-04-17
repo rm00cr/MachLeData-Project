@@ -14,17 +14,17 @@ def main():
         # Use columns to align input boxes next to each other
         col1, col2, col3 = st.columns(3)
         with col1:
-            work_year = st.number_input("Work year:", min_value=0, step=1)
-            employment_type = st.selectbox("Employment type:", ["Full-time", "Part-time", "Contract", "Freelance"])
-            salary_currency = st.text_input("Salary currency (e.g., USD, EUR):")
+            work_year = st.number_input("Work year:", min_value=0, step=1, key="work_year_tab1")
+            employment_type = st.selectbox("Employment type:", ["Full-time", "Part-time", "Contract", "Freelance"],key="employment_type_tab1")
+            salary_currency = st.text_input("Salary currency (e.g., USD, EUR):",key = "salary_currency_tab1")
         with col2:
-            experience_level = st.selectbox("Experience level:", ["Junior", "Mid-level", "Senior", "Executive"])
-            job_title = st.text_input("Job title:")
-            employee_residence = st.text_input("Employee residence:")
+            experience_level = st.selectbox("Experience level:", ["Junior", "Mid-level", "Senior", "Executive"],key = "experience_level_tab1")
+            job_title = st.text_input("Job title:",key = "job_title_tab1")
+            employee_residence = st.text_input("Employee residence:",key = "employee_residence_tab1")
         with col3:
-            company_location = st.text_input("Company location:")
-            company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"])
-            remote_ratio = st.slider("Remote ratio in %:", 0, 100, step=5)
+            company_location = st.text_input("Company location:",key = "company_location_tab1")
+            company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"],key = "company_size_tab1")
+            remote_ratio = st.slider("Remote ratio in %:", 0, 100, step=5,key = "remote_ratio_tab1")
 
         if st.button("Predict Salary"):
             prediction_data = {
@@ -53,17 +53,20 @@ def main():
         with col1:
             work_year = st.number_input("Work year:", min_value=0, step=1)
             employment_type = st.selectbox("Employment type:", ["Full-time", "Part-time", "Contract", "Freelance"])
-            salary = st.number_input("Salary:", min_value=0.0, step=1000.0)
+            salary_currency = st.text_input("Salary currency (e.g., USD, EUR):")
+            salary = st.number_input("Salary:", min_value=0.0, step=1000.0, key="salary_tab2")
+            
         with col2:
             experience_level = st.selectbox("Experience level:", ["Junior", "Mid-level", "Senior", "Executive"])
             job_title = st.text_input("Job title:")
-            salary_currency = st.text_input("Salary currency (e.g., USD, EUR):")
+            employee_residence = st.text_input("Employee residence:")
+            salary_in_usd = st.number_input("Salary in USD:", min_value=0.0, step=1000.0, key="salary_in_usd_tab2")
         with col3:
-            salary_in_usd = st.number_input("Salary in USD:", min_value=0.0, step=1000.0)
-            employee_residence = st.text_input("Employee residence (e.g., country code):")
-            remote_ratio = st.slider("Remote ratio (0 for on-site, 100 for fully remote):", 0, 100, step=10)
-            company_location = st.text_input("Company location (e.g., country code):")
+            company_location = st.text_input("Company location:")
             company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"])
+            remote_ratio = st.slider("Remote ratio (0 for on-site, 100 for fully remote):", 0, 100, step=10)
+            
+            
 
         if st.button("Submit New Data Point"):
             new_data = {
@@ -79,9 +82,10 @@ def main():
                 "company_location": company_location,
                 "company_size": company_size
             }
+
             response = requests.post(f"http://{st.session_state.ip}/add_data/", json=new_data)
             if response.status_code == 200:
-                st.success("Data point added successfully!")
+                st.success("Data point added successfully! Thank you for submitting.")
             else:
                 st.error("Failed to add data point.")
 
