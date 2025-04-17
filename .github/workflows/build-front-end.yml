@@ -30,4 +30,4 @@ jobs:
           context: ./front-end
           file: ./front-end/Dockerfile
           push: true
-          tags: rm00cr/front-end:latest
+          tags: ${{ secrets.DOCKER_PASSWORD }}/front-end:latest
