@@ -1,0 +1,21 @@
+# Dockerfile
+FROM ghcr.io/astral-sh/uv:python3.10-bookworm-slim
+
+RUN apt-get update && \
+    apt-get install -y curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN uv init
+RUN uv add mlflow[extras] scikit-learn pandas
+
+# Copy the saved MLflow model folder into the container.
+COPY saved_models/gb_model /opt/mlflow/model
+
+# Expose the MLflow serving port
+EXPOSE 5000
+
+# Final command to serve the model.
+CMD ["uv", "run", "python", "-m", "mlflow", "models", "serve", "--no-conda", "-m", "/opt/mlflow/model", "-h", "0.0.0.0", "-p", "5000"]
