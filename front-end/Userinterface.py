@@ -83,7 +83,7 @@ def main():
                 "company_size": company_size
             }
 
-            response = requests.post(f"http://{st.session_state.ip}/add_data/", json=new_data)
+            response = requests.post(f"http://{st.session_state.ip}/save/", json=new_data)
             if response.status_code == 200:
                 st.success("Data point added successfully! Thank you for submitting.")
             else:

@@ -33,6 +33,7 @@ def index():
     return 'Hallo'
     
 @app.route('/save/', methods=['POST'])
+
 def insert_salary():
     data = request.get_json()
     # Extract the data from the request
@@ -48,19 +49,19 @@ def insert_salary():
     company_location = data.get('company_location')
     company_size = data.get('company_size')
     # Create a new record
-    new_salary = {
-        'work_year': work_year,
-        'experience_level': experience_level,
-        'employment_type': employment_type,
-        'job_title': job_title,
-        'salary': salary,
-        'salary_currency': salary_currency,
-        'salary_in_usd': salary_in_usd,
-        'employee_residence': employee_residence,
-        'remote_ratio': remote_ratio,
-        'company_location': company_location,
-        'company_size': company_size,
-    }
+    new_salary = Salaries(
+        work_year=work_year,
+        experience_level=experience_level,
+        employment_type=employment_type,
+        job_title=job_title,
+        salary=salary,
+        salary_currency=salary_currency,
+        salary_in_usd=salary_in_usd,
+        employee_residence=employee_residence,
+        remote_ratio=remote_ratio,
+        company_location=company_location,
+        company_size=company_size,
+    )
     # Send the data to the database
     db.session.add(new_salary)
     db.session.commit()
