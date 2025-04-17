@@ -30,4 +30,4 @@ jobs:
           context: ./front-end
           file: ./front-end/Dockerfile
           push: true
-          tags: romo1o/front-end:latest
+          tags: romo1o/frontendmse:latest
