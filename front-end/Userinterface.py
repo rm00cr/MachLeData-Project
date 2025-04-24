@@ -163,7 +163,7 @@ currency = ['EUR', 'USD', 'GBP', 'CAD', 'PHP', 'INR', 'BRL', 'PLN', 'CHF',
 def main():
     if "ip" not in st.session_state:
         con = ':443/back-end'
-        st.session_state.ip = "localhost" + con #ipf.get()+':443/back-end' # add if pushing to server
+        st.session_state.ip = ipf.get() + con # "localhost"+':443/back-end' # add if pushing to server
     st.title("Data jobs salary predictor")
 
     tab1, tab2 = st.tabs(["Predict Salary", "Enter New Data Point"])
