@@ -184,7 +184,7 @@ def main():
         with col3:
             company_location = st.selectbox("Company location:", countries, key = "company_location_tab1")
             company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"],key = "company_size_tab1")
-            remote_ratio = st.slider("Remote ratio in %:", 5, 100, step=5,key = "remote_ratio_tab1")
+            remote_ratio = st.slider("Remote ratio in %:", 0, 100, step=10,key = "remote_ratio_tab1")
 
         if st.button("Predict Salary"):
             prediction_data = {
@@ -223,7 +223,7 @@ def main():
         with col3:
             company_location = st.selectbox("Company location:",countries)
             company_size = st.selectbox("Company size:", ["Small", "Medium", "Large"])
-            remote_ratio = st.slider("Remote ratio (0 for on-site, 100 for fully remote):", 5, 100, step=10)
+            remote_ratio = st.slider("Remote ratio (0 for on-site, 100 for fully remote):", 0, 100, step=10)
             
             
 
