@@ -5,6 +5,7 @@ import public_ip as ipf
 # variables for encoding 
 expierience = {"Junior":"EN", "Mid-level":"MI", "Senior":'SE', "Executive":"EX"}
 employmentstatus = {"Full-time":'FT', "Part-time":'PT', "Contract":'CT', "Freelance":'FL'}
+companysize = {"Small":'S', "Medium":'M', "Large":'L'}
 # for now hardcoded --> in a real solution make database request
 countries = ['NL', 'US', 'GB', 'LT', 'CA', 'ES', 'DE', 'LV', 'BE', 'FR', 'SK',
        'PH', 'IE', 'AU', 'BR', 'IN', 'PL', 'PE', 'AR', 'AT', 'CH', 'NZ',
@@ -196,7 +197,7 @@ def main():
                 "employee_residence": employee_residence,
                 "remote_ratio": remote_ratio,
                 "company_location": company_location,
-                "company_size": company_size
+                "company_size": companysize[company_size]
             }
             response = requests.post(f"http://{st.session_state.ip}/predict_salary/", json=prediction_data)
             if response.status_code == 200:
@@ -239,7 +240,7 @@ def main():
                 "employee_residence": employee_residence,
                 "remote_ratio": remote_ratio,
                 "company_location": company_location,
-                "company_size": company_size
+                "company_size": companysize[company_size]
             }
 
             response = requests.post(f"http://{st.session_state.ip}/save/", json=new_data)
