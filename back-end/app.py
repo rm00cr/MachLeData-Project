@@ -12,8 +12,7 @@ import public_ip as ipf
 from Model import Salaries, db
 
 
-
-host = "localhost"#ipf.get() 
+host = ipf.get() # "localhost"  ipf.get() add if pushing to server
 database = 'mydatabase'
 user = 'myuser'
 password = 'mypassword'
@@ -22,6 +21,7 @@ port = '5434'
 # Create a connection string
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{user}:{password}@{host}:{port}/{database}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
@@ -33,7 +33,6 @@ def index():
     return 'Hallo'
     
 @app.route('/save/', methods=['POST'])
-
 def insert_salary():
     data = request.get_json()
     # Extract the data from the request
