@@ -12,10 +12,10 @@ RUN uv init
 RUN uv add mlflow[extras] scikit-learn pandas
 #saved_models/gb_model
 # Copy the saved MLflow model folder into the container.
-COPY ./gb_model /opt/mlflow/model
+COPY ./mlruns /opt/mlflow/mlruns
 
 # Expose the MLflow serving port
-EXPOSE 5000
+EXPOSE 8080
 
 # Final command to serve the model.
-CMD ["uv", "run", "python", "-m", "mlflow", "models", "serve", "--no-conda", "-m", "/opt/mlflow/model", "-h", "0.0.0.0", "-p", "5000"]
+CMD ["uv", "run", "python", "-m", "mlflow", "server", "--no-conda", "-m", "/opt/mlflow/mlruns", "-h", "0.0.0.0", "-p", "8080"]

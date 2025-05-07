@@ -1,0 +1,42 @@
+# docker-compose.yml
+version: "3.9"
+
+services:
+  tracking:
+    build:
+      context: ./experiments
+      dockerfile: Dockerfile
+
+    container_name: mlflow-tracking
+    ports:
+      - "8080:8080"
+
+    restart: unless-stopped
+
+    # If your tracking Dockerfile sets CMD to something like:
+    # uv run mlflow server --host 0.0.0.0 --port 5001 \
+    #   --backend-store-uri sqlite:///app/mlflow.db \
+    #   --default-artifact-root /mlruns
+    # …then no extra command is needed here.
+
+  model:
+    build:
+      context: ./saved_models
+      dockerfile: Dockerfile
+    container_name: mlflow-model
+    ports:
+      - "5000:5000"
+
+    environment:
+      # Tell model‑serving where to log metrics/artifacts if you
+      # make prediction‑time calls to mlflow.start_run()
+      - MLFLOW_TRACKING_URI=http://tracking:5001
+
+    depends_on:
+      - tracking                   # start after the tracking server
+
+    restart: unless-stopped
+
+volumes:
+  mlruns:
+  tracking-db:
