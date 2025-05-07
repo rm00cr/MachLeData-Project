@@ -165,8 +165,8 @@ currency = ['EUR', 'USD', 'GBP', 'CAD', 'PHP', 'INR', 'BRL', 'PLN', 'CHF',
 
 
 def main():
+    con = ':443/back-end'
     if "ip" not in st.session_state:
-        con = ':443/back-end'
         st.session_state.ip = ipf.get() # "localhost"+':443/back-end' # add if pushing to server
     st.title("Data jobs salary predictor")
 
