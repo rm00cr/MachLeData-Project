@@ -12,7 +12,7 @@ import public_ip as ipf
 from Model import Salaries, db
 
 
-host = "localhost" #ipf.get() #add if pushing to server
+host = ipf.get() # "localhost"  ipf.get() add if pushing to server
 database = 'mydatabase'
 user = 'myuser'
 password = 'mypassword'
