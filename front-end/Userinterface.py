@@ -167,7 +167,7 @@ currency = ['EUR', 'USD', 'GBP', 'CAD', 'PHP', 'INR', 'BRL', 'PLN', 'CHF',
 def main():
     if "ip" not in st.session_state:
         con = ':443/back-end'
-        st.session_state.ip = ipf.get() + con # "localhost"+':443/back-end' # add if pushing to server
+        st.session_state.ip = ipf.get() # "localhost"+':443/back-end' # add if pushing to server
     st.title("Data jobs salary predictor")
 
     tab1, tab2 = st.tabs(["Predict Salary", "Enter New Data Point"])
@@ -254,7 +254,7 @@ def main():
                 "company_size": companysize[company_size]
             }
 
-            response = requests.post(f"http://{st.session_state.ip}/save/", json=new_data)
+            response = requests.post(f"http://{st.session_state.ip+con}/save/", json=new_data)
             if response.status_code == 200:
                 st.success("Data point added successfully! Thank you for submitting.")
             else:
