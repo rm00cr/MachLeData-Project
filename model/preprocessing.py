@@ -10,7 +10,8 @@ def download_dataset():
     """
     Download the dataset from Kaggle.
     """
-    dataset_path = kagglehub.dataset_download("samithsachidanandan/the-global-ai-ml-data-science-salary-for-2025")
+    dataset_path = kagglehub.dataset_download(
+        "samithsachidanandan/the-global-ai-ml-data-science-salary-for-2025")
     return dataset_path
 
 
@@ -21,24 +22,30 @@ def load_data(dataset_path):
 
 def preprocess_data(data, debug=False):
 
-    categorical_features = ["experience_level", "employment_type", "job_title", "company_size", "company_location", "employee_residence", "salary_currency"]
+    # categorical_features = ["experience_level", "employment_type", "job_title",
+    # "company_size", "company_location", "employee_residence", "salary_currency"]
+    """
+    categorical_transformer = ColumnTransformer([("onehot", OneHotEncoder(
+        handle_unknown="ignore"), categorical_features)], remainder="passthrough") """
 
-    categorical_transformer = ColumnTransformer([("onehot", OneHotEncoder(handle_unknown="ignore"), categorical_features)], remainder="passthrough")
+    one_hot = OneHotEncoder(handle_unknown="ignore")
 
     if debug:
         categorical_transformer = joblib.load("./categorical_transformer.pkl")
         return categorical_transformer.transform(data)
-    
-    data = data.query('job_title == "Data Scientist"')
-    x_train, x_test, y_train, y_test = train_test_split(data.drop(columns=["salary", "salary_in_usd", "work_year"]), data["salary"],  test_size=0.15, random_state=42, shuffle=True)
-    preprocessed_x_train = categorical_transformer.fit_transform(x_train)
-    joblib.dump(categorical_transformer, "./categorical_transformer.pkl")
-    preprocessed_x_test = categorical_transformer.transform(x_test)
+
+    # data = data.query('job_title == "Data Scientist"')
+    x_train, x_test, y_train, y_test = train_test_split(data.drop(
+        columns=["salary", "salary_in_usd"]), data["salary_in_usd"], test_size=0.15, random_state=42, shuffle=True)
+    preprocessed_x_train = one_hot.fit_transform(x_train)
+    print(x_train.columns)
+    joblib.dump(one_hot, "./categorical_transformer.pkl")
+    preprocessed_x_test = one_hot.transform(x_test)
 
     print(preprocessed_x_train.shape)
     print(preprocessed_x_train.shape)
 
-    scaler = StandardScaler()   
+    scaler = StandardScaler()
     scaler.fit(y_train.values.reshape(-1, 1))
     # y_train = scaler.transform(y_train.values.reshape(-1, 1))
     # y_test = scaler.transform(y_test.values.reshape(-1, 1))
