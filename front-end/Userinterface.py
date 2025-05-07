@@ -1,6 +1,9 @@
 import streamlit as st
 import requests
 import public_ip as ipf
+import joblib
+import pandas as pd
+import json
 
 # variables for encoding 
 expierience = {"Junior":"EN", "Mid-level":"MI", "Senior":'SE', "Executive":"EX"}
@@ -199,12 +202,20 @@ def main():
                 "company_location": company_location,
                 "company_size": companysize[company_size]
             }
-            response = requests.post(f"http://{st.session_state.ip}/predict_salary/", json=prediction_data)
+            prediction_data = pd.DataFrame(prediction_data,index=[0])
+            categorical_transformer = joblib.load("./categorical_transformer.pkl")
+            TRANSDATA = categorical_transformer.transform(prediction_data)
+            print(TRANSDATA)
+            payload = {
+                    "inputs": TRANSDATA.toarray().tolist()
+                }
+            # Send the POST request
+            response = requests.post(f"http://{st.session_state.ip}:443/inference/invocations", headers={"Content-Type": "application/json"}, data=json.dumps(payload))
             if response.status_code == 200:
-                prediction = response.json().get("predicted_salary")
-                st.success(f"Predicted Salary in USD: {prediction}")
+                prediction = response.json().get("predictions")
+                st.success(f"Predicted Salary in USD: {prediction[0]}")
             else:
-                st.error("Failed to predict salary.")
+                st.error(f"Failed to predict salary.{response.text}")
 
     with tab2:
         st.header("Enter New Data Point")
