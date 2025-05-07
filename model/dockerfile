@@ -19,3 +19,4 @@ EXPOSE 5000
 
 # Final command to serve the model.
 CMD ["uv", "run", "python", "-m", "mlflow", "models", "serve", "--no-conda", "-m", "/opt/mlflow/model", "-h", "0.0.0.0", "-p", "5000"]
+
