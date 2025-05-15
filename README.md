@@ -1,5 +1,6 @@
 # MachLeData-Project
 Develop a web app that displays data science job salaries and uses a machine learning model to predict a user’s net income based on key indicators.
+<br>
 Dataset: [Data Science Salaries from Kaggle](https://www.kaggle.com/datasets/sazidthe1/data-science-salaries)
 
 back-end: code for back-end of the MachLeData project<br>
