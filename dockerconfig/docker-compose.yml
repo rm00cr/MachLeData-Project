@@ -1,14 +1,21 @@
 services:
   api:
     restart: always
-    image: romo1o/back-end-mse:latest
+    image: romo1o/backendmse:latest
     container_name: api
     ports:
       - 5000:5000
+  predict:
+    restart: always
+    image: romo1o/modelmse:latest
+    container_name: predict
+    ports:
+      - 5001:5000
+
 
   ui:
     restart: always
-    image: romo1o/front-end-mse:latest
+    image: romo1o/frontendmse:latest
     container_name: ui
     ports:
       - 444:8501
@@ -16,7 +23,7 @@ services:
   postgres:
     image: postgres:16
     container_name: postgres_db
-    restart: unless-stopped
+    restart: always
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
@@ -26,10 +33,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  watchtower:
+    restart: always
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 300 api ui predict
+
 volumes:
   postgres_data:
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: /home/rmule/MLOPS_project/MachLeData-Project/postgres/data
+      device: /home/rmule/MLOPS/postgres/data
