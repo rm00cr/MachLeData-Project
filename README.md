@@ -1,15 +1,16 @@
 # MachLeData-Project
 Develop a web app that displays data science job salaries and uses a machine learning model to predict a user’s net income based on key indicators.
 <br>
+<br>
 Dataset: [Data Science Salaries from Kaggle](https://www.kaggle.com/datasets/sazidthe1/data-science-salaries)
 
+## Project structure
 back-end: code for back-end of the MachLeData project<br>
 front-end: code for front-end of the MachLeData project<br>
 model: code for the model deployment<br>
 postgres: development files for the postgres database and initialization of the database<br>
 dockerconfig: docker-compose file for VM<br>
 serverconfiguration: Reverse proxy configuration files for the server<br>
-
 
 ## Postgres configuration
 In order to be able to connect to the postgres Docker container you have to configure the pg_hba.conf and postgresql.conf files.<br>
